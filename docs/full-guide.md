@@ -696,13 +696,14 @@ python main.py --workers 5            # 指定并发数
 ```yaml
 schedule:
   # UTC 时间，北京时间 = UTC + 8
-  - cron: '0 10 * * 1-5'   # 周一到周五 18:00（北京时间）
+  - cron: '8 1 * * 1-5'    # 周一到周五 09:08（北京时间）
 ```
 
 常用时间对照：
 
 | 北京时间 | UTC cron 表达式 |
 |---------|----------------|
+| 09:08 | `'8 1 * * 1-5'` |
 | 09:30 | `'30 1 * * 1-5'` |
 | 12:00 | `'0 4 * * 1-5'` |
 | 15:00 | `'0 7 * * 1-5'` |
@@ -1029,10 +1030,11 @@ FEISHU_WEBHOOK_URL=https://open.feishu.cn/open-apis/bot/v2/hook/your_hook_token
 ### Telegram
 
 1. 与 @BotFather 对话创建 Bot
-2. 获取 Bot Token
-3. 获取 Chat ID（可通过 @userinfobot）
-4. 设置 `TELEGRAM_BOT_TOKEN` 和 `TELEGRAM_CHAT_ID`
-5. (可选) 如需发送到 Topic，设置 `TELEGRAM_MESSAGE_THREAD_ID` (从 Topic 链接末尾获取)
+2. 获取完整 Bot Token，格式为 `<机器人数字 ID>:<密钥>`
+3. 私聊推送时，先给机器人发送 `/start`，再通过 @userinfobot 或 `https://api.telegram.org/bot<TOKEN>/getUpdates` 获取 `message.chat.id`；`getMe` 返回的 `result.id` 是机器人自身 ID，不能作为接收方 Chat ID
+4. 群组或频道推送时，将机器人加入目标群组并授予发言权限（频道需设为管理员），再使用目标群组或频道的 `chat.id`；机器人会直接发布到目标会话，不经过私人聊天转发
+5. 设置 `TELEGRAM_BOT_TOKEN` 和 `TELEGRAM_CHAT_ID`
+6. （可选）如需发送到启用了 Topics 的超级群组子话题，在目标 Topic 中发送一条消息，然后从 `getUpdates` 的对应消息读取 `message_thread_id`，并设置 `TELEGRAM_MESSAGE_THREAD_ID`
 
 ### 邮件
 
