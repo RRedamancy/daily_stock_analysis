@@ -629,13 +629,14 @@ Edit `.github/workflows/00-daily-analysis.yml`:
 ```yaml
 schedule:
   # UTC time, Beijing time = UTC + 8
-  - cron: '0 10 * * 1-5'   # Monday to Friday 18:00 (Beijing Time)
+  - cron: '8 1 * * 1-5'    # Monday to Friday 09:08 (Beijing Time)
 ```
 
 Common time reference:
 
 | Beijing Time | UTC cron expression |
 |---------|----------------|
+| 09:08 | `'8 1 * * 1-5'` |
 | 09:30 | `'30 1 * * 1-5'` |
 | 12:00 | `'0 4 * * 1-5'` |
 | 15:00 | `'0 7 * * 1-5'` |
@@ -888,10 +889,11 @@ For a full illustrated troubleshooting guide, see [docs/bot/feishu-bot-config.md
 ### Telegram
 
 1. Talk to @BotFather to create a Bot
-2. Get Bot Token
-3. Get Chat ID (via @userinfobot)
-4. Set `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID`
-5. (Optional) To send to Topic, set `TELEGRAM_MESSAGE_THREAD_ID` (get from Topic link)
+2. Get the complete Bot Token in the form `<numeric bot ID>:<secret>`
+3. For private delivery, send `/start` to the bot, then obtain `message.chat.id` from @userinfobot or `https://api.telegram.org/bot<TOKEN>/getUpdates`; the `result.id` returned by `getMe` identifies the bot itself and is not a recipient Chat ID
+4. For group or channel delivery, add the bot to the target and grant permission to post (channels require an administrator), then use the target group's or channel's `chat.id`; the bot posts directly to that chat instead of forwarding from a private conversation
+5. Set `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID`
+6. (Optional) To send to a forum Topic in a supergroup, post a message in that Topic, read `message_thread_id` from the matching `getUpdates` message, and set `TELEGRAM_MESSAGE_THREAD_ID`
 
 ### Email
 
