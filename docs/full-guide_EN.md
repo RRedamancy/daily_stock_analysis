@@ -629,14 +629,14 @@ Edit `.github/workflows/00-daily-analysis.yml`:
 ```yaml
 schedule:
   # UTC time, Beijing time = UTC + 8
-  - cron: '8 1 * * 1-5'    # Monday to Friday 09:08 (Beijing Time)
+  - cron: '38 7 * * 1-5'   # Monday to Friday 15:38 (Beijing Time)
 ```
 
 Common time reference:
 
 | Beijing Time | UTC cron expression |
 |---------|----------------|
-| 09:08 | `'8 1 * * 1-5'` |
+| 15:38 | `'38 7 * * 1-5'` |
 | 09:30 | `'30 1 * * 1-5'` |
 | 12:00 | `'0 4 * * 1-5'` |
 | 15:00 | `'0 7 * * 1-5'` |
