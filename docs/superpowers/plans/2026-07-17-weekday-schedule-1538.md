@@ -88,6 +88,6 @@ git commit -m "chore: schedule weekday analysis at 15:38"
 git push origin main
 ```
 
-- [ ] **Step 5: Verify GitHub and remove the temporary clone**
+- [x] **Step 5: Verify GitHub and remove the temporary clone**
 
 Confirm the remote workflow contains `38 7 * * 1-5` and reports `active`, then remove `/tmp/RRedamancy-daily-stock-analysis-1538` and confirm the path no longer exists.
